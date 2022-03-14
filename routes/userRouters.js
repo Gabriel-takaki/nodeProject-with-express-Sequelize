@@ -1,9 +1,13 @@
-// const express = require('express');
+const express = require('express');
 
-// const userRouter = express.Router();
+const userRouter = express.Router();
 
-// const postUserController = require('../controllers/userControllers');
+const userControllers = require('../controllers/userControllers');
+const validationUser = require('../middlewares/emailValidation');
 
-// userRouter.post('/', postUserController);
+userRouter.post('/', validationUser.validationDisplayName, 
+validationUser.validationEmail, 
+validationUser.validationPassword, 
+userControllers.postUserController);
 
-// module.exports = userRouter;
+module.exports = userRouter;
