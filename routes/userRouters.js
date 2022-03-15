@@ -10,4 +10,7 @@ validationUser.validationEmail,
 validationUser.validationPassword, 
 userControllers.postUserController);
 
+userRouter.get('/', validationUser.validationToken,
+userControllers.getAllUsersController);
+
 module.exports = userRouter;

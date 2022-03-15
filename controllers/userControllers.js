@@ -7,7 +7,7 @@ const { postUser } = require('../services/userServices');
 
 const { JWT_SECRET } = process.env;
 
-const jwtConfig = { expiresIn: '1h' };
+const jwtConfig = { expiresIn: '1d' };
 
 const postUserController = async (req, res) => {
     const { displayName, email, password, image } = req.body;
@@ -23,6 +23,15 @@ const postUserController = async (req, res) => {
     return res.status(201).json({ token });
 };
 
+const getAllUsersController = async (_req, res, _next) => {
+    const allUsers = await Users.findAll({
+        attributes: { exclude: ['password'] },
+    });
+    console.log(allUsers);
+    return res.status(200).json(allUsers);
+};
+
 module.exports = {
     postUserController,
+    getAllUsersController,
 };
