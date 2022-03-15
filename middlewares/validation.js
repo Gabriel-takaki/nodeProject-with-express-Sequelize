@@ -57,23 +57,17 @@ const validationPassword = (req, res, next) => {
 };
 
 const validationToken = async (req, res, next) => {
+  const checkToken = req.headers.authorization;
+  if (!checkToken) return res.status(401).json({ message: 'Token not found' });
   try {
-    const token = req.headers.authorization;
-    console.log(token);
-    if (!token) return res.status(401).json({ message: 'Token not found' });
-
-    const decoded = jwt.verify(token, JWT_SECRET);
-
-    req.tokenData = decoded.id;
-
+    jwt.verify(checkToken, JWT_SECRET);
     next();
-  } catch (error) {
-    if (error.name.includes('Token')) {
-      return res.status(401).json({ message: 'Expired or invalid token' });
-    }
-    next();
+    // refatorando codigo de verificação para ficar mais clean com ajuda da pr do caio lima turma 15 pr: 'https://github.com/tryber/sd-015-a-project-blogs-api/tree/caio-lima-blogs-api'
+  } catch (e) {
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 };
+
 module.exports = {
   validationDisplayName,
   validationEmail,
