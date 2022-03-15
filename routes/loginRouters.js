@@ -8,6 +8,6 @@ const validationUser = require('../middlewares/validation');
 loginRouter.post('/', 
 validationUser.validationEmail, 
 validationUser.validationPassword, 
-loginController.login);
+loginController.loginController);
 
 module.exports = loginRouter;
