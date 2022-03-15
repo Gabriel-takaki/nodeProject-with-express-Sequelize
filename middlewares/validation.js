@@ -62,9 +62,9 @@ const validationToken = async (req, res, next) => {
   try {
     jwt.verify(checkToken, JWT_SECRET);
     next();
-    // refatorando codigo de verificação para ficar mais clean com ajuda da pr do caio lima turma 15 pr: 'https://github.com/tryber/sd-015-a-project-blogs-api/tree/caio-lima-blogs-api'
   } catch (e) {
     return res.status(401).json({ message: 'Expired or invalid token' });
+    // refatorando codigo de verificação para ficar mais clean com ajuda da pr do caio lima turma 15 pr: 'https://github.com/tryber/sd-015-a-project-blogs-api/tree/caio-lima-blogs-api'
   }
 };
 
