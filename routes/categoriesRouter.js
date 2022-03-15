@@ -9,8 +9,8 @@ categoriesRouter.post('/',
 validationUser.validationToken,
 categoriesControllers.postCategorieController);
 
-// userRouter.get('/', validationUser.validationToken,
-// userControllers.getAllUsersController);
+categoriesRouter.get('/', validationUser.validationToken,
+categoriesControllers.getAllCategoriesController);
 
 // userRouter.get('/:id', validationUser.validationToken, userControllers.getUserByIdController);
 

@@ -16,6 +16,13 @@ const postCategorieController = async (req, res) => {
     return res.status(201).json(categorieCreated);
 };
 
+const getAllCategoriesController = async (_req, res, _next) => {
+    const allCategories = await Category.findAll();
+    console.log(allCategories);
+    return res.status(200).json(allCategories);
+};
+
 module.exports = {
     postCategorieController,
+    getAllCategoriesController,
 };
