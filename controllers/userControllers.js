@@ -31,7 +31,18 @@ const getAllUsersController = async (_req, res, _next) => {
     return res.status(200).json(allUsers);
 };
 
+const getUserByIdController = async (req, res, _next) => {
+    const { id } = req.params;
+
+    const allUsersById = await Users.findOne({ where: { id } });
+    if (!allUsersById) return res.status(404).json({ message: 'User does not exist' });
+    const userFiltredById = allUsersById.dataValues;
+    console.log(userFiltredById);
+    return res.status(200).json(allUsersById);
+};
+
 module.exports = {
     postUserController,
     getAllUsersController,
+    getUserByIdController,
 };
