@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const { Category } = require('../models');
 
 const { JWT_SECRET } = process.env;
 
@@ -68,9 +69,35 @@ const validationToken = async (req, res, next) => {
   }
 };
 
+const validationPostBody = (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+  if (!title) {
+    return res.status(400).json({ message: '"title" is required' });
+  }
+  if (!content) {
+    return res.status(400).json({ message: '"content" is required' });
+  }
+  if (!categoryIds) {
+    return res.status(400).json({ message: '"categoryIds" is required' });
+  }
+  next();
+};
+
+async function validateCategories(req, res, next) {
+  const { categoryIds } = req.body;
+  const found = (await Category.findAll({ attributes: ['id'] })).map((a) => a.id);
+  const testIds = categoryIds.every((id) => found.includes(id));
+  if (!testIds) {
+    return res.status(400).json({ message: '"categoryIds" not found' });
+  }
+  next();
+}
+
 module.exports = {
   validationDisplayName,
   validationEmail,
   validationPassword,
   validationToken,
+  validationPostBody,
+  validateCategories,
 };
