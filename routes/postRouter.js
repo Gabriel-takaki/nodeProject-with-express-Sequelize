@@ -11,4 +11,8 @@ validationUser.validateCategories,
 validationUser.validationToken, 
 postController.createPost);
 
+postRouter.get('/', 
+validationUser.validationToken,
+postController.getAllPosts);
+
 module.exports = postRouter;
