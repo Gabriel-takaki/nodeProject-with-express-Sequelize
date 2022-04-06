@@ -28,7 +28,7 @@ const createPost = async (req, res, _next) => {
     }
   };
 
-  const getAllPosts = async (req, res, _next) => {
+  const getAllPosts = async (_req, res, _next) => {
       try {
         const posts = await BlogPost.findAll({
           include: [
